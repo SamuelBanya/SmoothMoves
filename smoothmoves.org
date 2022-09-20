@@ -1,0 +1,120 @@
+* Title
+<2022-09-19 Mon 19:55>: After a bit of deliberation last night, I stumbled upon a decent name for this project, which would include the following:
+- Smooth Moves
+
+Reason being is that we used a similarly named moving company recently, and funnily enough, it was not as smooth as we expected so I aim to correct that with this app's experience.
+
+* Ideas
+<2022-09-19 Mon 19:56>: These are mentioned in the 'README.md' already for this project, but this is much more inclusive and thought out than my Phase 2 project so I'm already pretty stoked for where this is going as I would have loved to have this kind of app before I moved recently.
+
+* Design Ideas
+<2022-09-19 Mon 19:57>: This will include the following design choices:
+- Usage of React based forms for the frontend
+- "Material UI" will be used as the CSS stylesheet framework
+
+* How I Installed The Backend Components
+<2022-09-19 Mon 20:13>: I first used the following command to install the Gem components:
+#+begin_src bash
+bundle install
+#+end_src
+
+* How I Created The Separate Frontend
+<2022-09-19 Mon 20:16>: As instructed by the assignment, I created a separate repo folder for the React frontend component:
+- https://github.com/SamuelBanya/SmoothMoves-Frontend
+
+I then changed into this directory, and then used the following terminal command:
+#+begin_src bash
+npx create-react-app smoothmoves-frontend
+#+end_src
+
+Related output:
+#+BEGIN_SRC bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3 $ cd SmoothMoves-Frontend/
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves-Frontend $ ls
+LICENSE         README.md
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves-Frontend $ npx create-react-app smoothmoves-frontend
+
+Creating a new React app in /Users/samuelbanya/hub/Development/code/phase-3/SmoothMoves-Frontend/smoothmoves-frontend.
+
+Installing packages. This might take a couple of minutes.
+Installing react, react-dom, and react-scripts with cra-template...
+
+
+added 1394 packages in 38s
+
+209 packages are looking for funding
+  run `npm fund` for details
+
+Installing template dependencies using npm...
+
+added 56 packages in 5s
+
+209 packages are looking for funding
+  run `npm fund` for details
+Removing template package using npm...
+
+
+removed 1 package, and audited 1450 packages in 2s
+
+209 packages are looking for funding
+  run `npm fund` for details
+
+6 high severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+Success! Created smoothmoves-frontend at /Users/samuelbanya/hub/Development/code/phase-3/SmoothMoves-Frontend/smoothmoves-frontend
+Inside that directory, you can run several commands:
+
+  npm start
+    Starts the development server.
+
+  npm run build
+    Bundles the app into static files for production.
+
+  npm test
+    Starts the test runner.
+
+  npm run eject
+    Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you do this, you can’t go back!
+
+We suggest that you begin by typing:
+
+  cd smoothmoves-frontend
+  npm start
+
+Happy hacking!
+#+END_SRC
+
+* How I Created The Related Migrations For The Related Table
+<2022-09-19 Mon 20:32>: I used the following migration command in terminal to create the necessary migration necessary for the 'User' table:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:create_migration NAME=create_user_table
+db/migrate/20220920013221_create_user_table.rb
+#+end_src
+
+I then filled the contents of the 'db/migrate/20220920013221_create_user_table.rb' file with the following:
+#+begin_src ruby
+class CreateUserTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :users do |t|
+      t.string :name
+      t.string :pickup_location
+      t.string :dropoff_location
+    end
+  end
+end
+#+end_src
+
+I then ran the related migration with the following 'bundle exec rake db:migrate' command:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:migrate
+== 20220920013221 CreateUserTable: migrating ==================================
+-- create_table(:users)
+   -> 0.0007s
+== 20220920013221 CreateUserTable: migrated (0.0008s) =========================
+#+end_src

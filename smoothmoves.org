@@ -198,3 +198,46 @@ end
 class User < ActiveRecord::Base
 end
 #+end_src
+
+<2022-09-20 Tue 20:50>: I then determined the relationships involved in this particular scenario which include the following:
+#+begin_src ascii
+    ┌─────►Mover
+    │
+    │
+User├─────►Item
+    │
+    │
+    └─────►Location
+#+end_src
+
+<2022-09-20 Tue 21:00>: With this in mind, I then added another migration for the 'movers' table accordingly since each mover will have an associated 'name' and 'email' address for the '/email' route that we want to expose to the frontend later on:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:create_migration NAME=create_movers_table
+db/migrate/20220921020149_create_movers_table.rb
+#+end_src
+
+I then added the following contents to the 'db/migrate/20220921020149_create_movers_table.rb' file:
+#+begin_src ruby
+class CreateMoversTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :movers do |t|
+      t.string :name
+      t.string :email
+    end
+  end
+end
+#+end_src
+
+<2022-09-20 Tue 21:08>: I then thought of a neat feature to add later which would be the following:
+- This would involve a slight bit of extra math, but you can basically do the following:
+- Calculate the distance from the first set of movers to the 'pickup_location' which you can then list on the summary page
+- Calculate the distance from the second set of movers to the 'dropoff_location' which you can then list on the summary page
+
+I then ran the related migration with this command:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:migrate
+== 20220921020149 CreateMoversTable: migrating ================================
+-- create_table(:movers)
+   -> 0.0015s
+== 20220921020149 CreateMoversTable: migrated (0.0016s) =======================
+#+end_src

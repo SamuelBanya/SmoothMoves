@@ -90,16 +90,16 @@ We suggest that you begin by typing:
 Happy hacking!
 #+END_SRC
 
-* How I Created The Related Migrations For The Related Table
+* How I Created The Related Migrations For The Related Tables
 <2022-09-19 Mon 20:32>: I used the following migration command in terminal to create the necessary migration necessary for the 'User' table:
 #+begin_src bash
-samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:create_migration NAME=create_user_table
-db/migrate/20220920013221_create_user_table.rb
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:create_migration NAME=create_users_table
+db/migrate/20220920013221_create_users_table.rb
 #+end_src
 
-I then filled the contents of the 'db/migrate/20220920013221_create_user_table.rb' file with the following:
+I then filled the contents of the 'db/migrate/20220920013221_create_users_table.rb' file with the following:
 #+begin_src ruby
-class CreateUserTable < ActiveRecord::Migration[6.1]
+class CreateUsersTable < ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
       t.string :name
@@ -113,8 +113,41 @@ end
 I then ran the related migration with the following 'bundle exec rake db:migrate' command:
 #+begin_src bash
 samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:migrate
-== 20220920013221 CreateUserTable: migrating ==================================
+== 20220920013221 CreateUsersTable: migrating =================================
 -- create_table(:users)
-   -> 0.0007s
-== 20220920013221 CreateUserTable: migrated (0.0008s) =========================
+   -> 0.0012s
+== 20220920013221 CreateUsersTable: migrated (0.0013s) ========================
+#+end_src
+
+<2022-09-20 Tue 19:28>: I then created another migration for the 'items' table with the following 'bundle exec rake db:create_migration' command:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:create_migration NAME=create_items_table
+db/migrate/20220921003339_create_items_table.rb
+#+end_src
+
+I then entered the following inside the 'db/migrate/20220921003339_create_items_table.rb' file:
+#+begin_src ruby
+class CreateItemsTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :items do |t|
+      t.string :name
+      t.string :owner
+      t.integer :length
+      t.integer :width
+      t.integer :height
+      t.integer :weight
+      # Values include "loose" or "boxed"
+      t.string :item_type
+    end
+  end
+end
+#+end_src
+
+I then ran the related migration for the 'bundle exec rake db:migrate' table with the following command:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:migrate
+== 20220921003339 CreateItemsTable: migrating =================================
+-- create_table(:items)
+   -> 0.0013s
+== 20220921003339 CreateItemsTable: migrated (0.0013s) ========================
 #+end_src

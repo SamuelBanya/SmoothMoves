@@ -178,3 +178,23 @@ samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec
    -> 0.0013s
 == 20220921013908 CreateLocationsTable: migrated (0.0014s) ====================
 #+end_src
+
+I then created the following models under 'app/models':
+
+'app/models/item.rb':
+#+begin_src ruby
+class Item < ActiveRecord::Base
+end
+#+end_src
+
+'app/models/location.rb':
+#+begin_src ruby
+class Location < ActiveRecord::Base
+end
+#+end_src
+
+'app/models/user.rb':
+#+begin_src ruby
+class User < ActiveRecord::Base
+end
+#+end_src

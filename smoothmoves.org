@@ -241,3 +241,9 @@ samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec
    -> 0.0015s
 == 20220921020149 CreateMoversTable: migrated (0.0016s) =======================
 #+end_src
+
+I then added the associated 'app/models/mover.rb' model with the following contents:
+#+begin_src ruby
+class Mover < ActiveRecord::Base
+end
+#+end_src

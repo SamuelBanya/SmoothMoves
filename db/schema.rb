@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_21_003339) do
+ActiveRecord::Schema.define(version: 2022_09_21_013908) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
@@ -20,6 +20,11 @@ ActiveRecord::Schema.define(version: 2022_09_21_003339) do
     t.integer "height"
     t.integer "weight"
     t.string "item_type"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "dropoff_location"
+    t.string "pickup_location"
   end
 
   create_table "users", force: :cascade do |t|

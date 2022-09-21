@@ -151,3 +151,30 @@ samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec
    -> 0.0013s
 == 20220921003339 CreateItemsTable: migrated (0.0013s) ========================
 #+end_src
+
+<2022-09-20 Tue 19:58>: I then thought about it for a bit, and realized I actually need a separate 'locations' table since all of the items would have two separate locations which include the 'dropoff_location' and 'pickup_location', so I created an associated migration accordingly:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:create_migration NAME=create_locations_table
+db/migrate/20220921013908_create_locations_table.rb
+#+end_src
+
+I then modified the 'db/migrate/20220921013908_create_locations_table.rb' file with the following contents:
+#+begin_src ruby
+class CreateLocationsTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :locations do |t|
+      t.string :dropoff_location
+      t.string :pickup_location
+    end
+  end
+end
+#+end_src
+
+I then ran the following 'bundle exec rake db:migrate' command accordingly:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:migrate
+== 20220921013908 CreateLocationsTable: migrating =============================
+-- create_table(:locations)
+   -> 0.0013s
+== 20220921013908 CreateLocationsTable: migrated (0.0014s) ====================
+#+end_src

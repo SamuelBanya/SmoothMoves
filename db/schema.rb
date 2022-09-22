@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2022_09_21_003339) do
 
   create_table "items", force: :cascade do |t|
+    t.integer "item_id"
     t.string "name"
     t.string "owner"
     t.integer "length"
@@ -23,6 +24,7 @@ ActiveRecord::Schema.define(version: 2022_09_21_003339) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "user_id"
     t.string "name"
     t.string "pickup_location"
     t.string "dropoff_location"

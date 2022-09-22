@@ -347,3 +347,109 @@ class Item < ActiveRecord::Base
     belongs_to :item
 end
 #+end_src
+
+<2022-09-21 Wed 20:32>: I then realized I need to have some kind of 'id' based columns so that I can later use it for 'CRUD' type methods within the Application Controller.
+
+With this in mind, I had to re-rollback the database again:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:rollback
+== 20220921003339 CreateItemsTable: reverting =================================
+-- drop_table(:items)
+   -> 0.0022s
+== 20220921003339 CreateItemsTable: reverted (0.0052s) ========================
+
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:rollback
+== 20220920013221 CreateUsersTable: reverting =================================
+-- drop_table(:users)
+   -> 0.0012s
+== 20220920013221 CreateUsersTable: reverted (0.0036s) ========================
+#+end_src
+
+I then revised the '20220920013221_create_users_table.rb' file with the following contents:
+#+begin_src ruby
+class CreateUsersTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :users do |t|
+      t.integer :user_id
+      t.string :name
+      t.string :pickup_location
+      t.string :dropoff_location
+    end
+  end
+end
+#+end_src
+
+I then revised the '20220921003339_create_items_table.rb' file with the following contents:
+#+begin_src ruby
+class CreateItemsTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :items do |t|
+      t.integer :item_id
+      t.string :name
+      t.string :owner
+      t.integer :length
+      t.integer :width
+      t.integer :height
+      t.integer :weight
+      # Values include "loose" or "boxed"
+      t.string :item_type
+    end
+  end
+end
+#+end_src
+
+I then re-ran the 'db:migrate' command accordingly:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:migrate
+== 20220920013221 CreateUsersTable: migrating =================================
+-- create_table(:users)
+   -> 0.0013s
+== 20220920013221 CreateUsersTable: migrated (0.0014s) ========================
+
+== 20220921003339 CreateItemsTable: migrating =================================
+-- create_table(:items)
+   -> 0.0013s
+== 20220921003339 CreateItemsTable: migrated (0.0014s) ========================
+#+end_src
+* How I Created CRUD Methods Within The Application Controller
+<2022-09-21 Wed 21:26>: In order to add CRUD (Create, Read, Update, Delete) methods for the 'users' table, I modified the contents of the 'application_controller.rb' file with the following:
+#+begin_src ruby
+class ApplicationController < Sinatra::Base
+  set :default_content_type, "application/json"
+
+  # Add your routes here
+  get "/" do
+    { message: "Good luck with your project!" }.to_json
+  end
+
+  get "/users" do
+    users = User.all()
+    users.to_json()
+  end
+
+  post "/users" do
+    user = User.create(
+      name: params[:name]
+      pickup_location: params[:pickup_location]
+      dropoff_location: params[:dropoff_location]
+    )
+    user.to_json()
+  end
+
+  patch "/users/:id" do
+    user = User.find(params[:user_id])
+    user.update(
+      name: params[:name]
+      pickup_location: params[:pickup_location]
+      dropoff_location: params[:dropoff_location]
+    )
+    user.to_json()
+  end
+
+  delete "/users/:id" do
+    user = User.find(params[:user_id])
+    user.destroy()
+    user.to_json()
+  end
+end
+#+end_src

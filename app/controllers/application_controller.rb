@@ -36,4 +36,15 @@ class ApplicationController < Sinatra::Base
     user.to_json()
   end
 
+  get "/items" do 
+  end
+
+  post "/items" do 
+  end
+
+  patch "/items/:id" do 
+  end
+
+  delete "/items/:id" do 
+  end
 end

@@ -412,7 +412,7 @@ samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec
 == 20220921003339 CreateItemsTable: migrated (0.0014s) ========================
 #+end_src
 * How I Created CRUD Methods Within The Application Controller
-<2022-09-21 Wed 21:26>: In order to add CRUD (Create, Read, Update, Delete) methods for the 'users' table, I modified the contents of the 'application_controller.rb' file with the following:
+<2022-09-21 Wed 21:26>: In order to add CRUD (Create, Read, Update, Delete) methods for the 'users' table, I modified the contents of the 'app/controllers/application_controller.rb' file with the following:
 #+begin_src ruby
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
@@ -450,6 +450,86 @@ class ApplicationController < Sinatra::Base
     user = User.find(params[:user_id])
     user.destroy()
     user.to_json()
+  end
+end
+#+end_src
+
+I then modified the 'app/controllers/application_controller.rb' file with the following revisions to add "CRUD" methods for the "items" table:
+#+begin_src ruby
+class ApplicationController < Sinatra::Base
+  set :default_content_type, "application/json"
+
+  # Add your routes here
+  get "/" do
+    { message: "Good luck with your project!" }.to_json
+  end
+
+  get "/users" do
+    users = User.all()
+    users.to_json()
+  end
+
+  post "/users" do
+    user = User.create(
+      name: params[:name]
+      pickup_location: params[:pickup_location]
+      dropoff_location: params[:dropoff_location]
+    )
+    user.to_json()
+  end
+
+  patch "/users/:id" do
+    user = User.find(params[:user_id])
+    user.update(
+      name: params[:name]
+      pickup_location: params[:pickup_location]
+      dropoff_location: params[:dropoff_location]
+    )
+    user.to_json()
+  end
+
+  delete "/users/:id" do
+    user = User.find(params[:user_id])
+    user.destroy()
+    user.to_json()
+  end
+
+  get "/items" do
+    items = Item.all()
+    items.to_json()
+  end
+
+  post "/items" do
+    item = Item.create(
+      name: params[:name],
+      owner: params[:owner],
+      length: params[:length],
+      width: params[:width],
+      height: params[:height],
+      weight: params[:weight],
+      item_type: params[:item_type]
+    )
+    item.to_json()
+  end
+
+  patch "/items/:id" do
+    item = Item.find(params[:item_id])
+    item.update(
+      name: params[:name],
+      owner: params[:owner],
+      length: params[:length],
+      width: params[:width],
+      height: params[:height],
+      weight: params[:weight],
+      item_type: params[:item_type]
+    )
+    item.to_json()
+  end
+
+  delete "/items/:id" do
+    item = Item.find(params[:item_id])
+    item.destroy()
+    item.to_json()
   end
 end
 #+end_src

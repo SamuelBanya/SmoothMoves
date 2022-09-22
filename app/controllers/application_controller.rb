@@ -69,5 +69,8 @@ class ApplicationController < Sinatra::Base
   end
 
   delete "/items/:id" do 
+    item = Item.find(params[:item_id])
+    item.destroy()
+    item.to_json()
   end
 end

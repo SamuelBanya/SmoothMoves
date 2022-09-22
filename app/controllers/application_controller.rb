@@ -13,8 +13,8 @@ class ApplicationController < Sinatra::Base
 
   post "/users" do 
     user = User.create(
-      name: params[:name]
-      pickup_location: params[:pickup_location]
+      name: params[:name],
+      pickup_location: params[:pickup_location],
       dropoff_location: params[:dropoff_location]
     )
     user.to_json()
@@ -23,8 +23,8 @@ class ApplicationController < Sinatra::Base
   patch "/users/:id" do 
     user = User.find(params[:user_id])
     user.update(
-      name: params[:name]
-      pickup_location: params[:pickup_location]
+      name: params[:name],
+      pickup_location: params[:pickup_location],
       dropoff_location: params[:dropoff_location]
     )
     user.to_json()

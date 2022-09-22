@@ -533,3 +533,133 @@ class ApplicationController < Sinatra::Base
   end
 end
 #+end_src
+
+
+<2022-09-22 Thu 15:23>: Office Hour Notes:
+- I first need to do two related rollbacks using 'bundle exec db:rollback'
+- Then I need to make a correction to the key relationships since these are the corrections I need to make:
+- This needs to include the following changes in the 'db/migrate/20220921003339_create_items_table.rb' migrations file to include the foreign key, ':user_id':
+#+begin_src ruby
+class CreateItemsTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :items do |t|
+      t.integer :user_id
+      t.string :name
+      t.string :owner
+      t.integer :length
+      t.integer :width
+      t.integer :height
+      t.integer :weight
+      # Values include "loose" or "boxed"
+      t.string :item_type
+    end
+  end
+end
+#+end_src
+- I need to remove the ':user_id' key in the '20220920013221_create_users_table.rb' file:
+#+begin_src ruby
+class CreateUsersTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :users do |t|
+      t.string :name
+      t.string :pickup_location
+      t.string :dropoff_location
+    end
+  end
+end
+#+end_src
+
+<2022-09-22 Thu 15:28>: I then made these revisions and used 'bundle exec rake db:migrate':
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:migrate
+== 20220920013221 CreateUsersTable: migrating =================================
+-- create_table(:users)
+   -> 0.0013s
+== 20220920013221 CreateUsersTable: migrated (0.0013s) ========================
+
+== 20220921003339 CreateItemsTable: migrating =================================
+-- create_table(:items)
+   -> 0.0010s
+== 20220921003339 CreateItemsTable: migrated (0.0011s) ========================
+#+end_src
+
+<2022-09-22 Thu 15:41>: Office Hour Notes:
+- I had to rethink my app yet again because the way my current tables would not be valid as per project requirements
+- This is because the current version of my app would assume there are multiple 'users', which is not the case since there is a singular user
+- Therefore, I need to change the 'users' table to instead be 'moves' since you can track multiple moves within the single move application
+
+With this in mind, I did two rollbacks yet again:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:rollback
+== 20220921003339 CreateItemsTable: reverting =================================
+-- drop_table(:items)
+   -> 0.0013s
+== 20220921003339 CreateItemsTable: reverted (0.0039s) ========================
+
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:rollback
+== 20220920013221 CreateUsersTable: reverting =================================
+-- drop_table(:users)
+   -> 0.0010s
+== 20220920013221 CreateUsersTable: reverted (0.0039s) ========================
+
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:rollback
+#+end_src
+
+I then changed the name of the 'db/migrate/20220920013221_create_users_table.rb' file to the following name:
+- 'db/migrate/20220920013221_create_moves_table.rb'
+
+I then changed the contents of the 'db/migrate/20220920013221_create_moves_table.rb' file to the following:
+#+begin_src ruby
+class CreateMovesTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :users do |t|
+      t.string :name
+      t.string :pickup_location
+      t.string :dropoff_location
+    end
+  end
+end
+#+end_src
+
+I then changed the contents of the '20220921003339_create_items_table.rb' file to the following:
+#+begin_src ruby
+class CreateItemsTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :items do |t|
+      t.integer :move_id
+      t.string :name
+      t.string :owner
+      t.integer :length
+      t.integer :width
+      t.integer :height
+      t.integer :weight
+      # Values include "loose" or "boxed"
+      t.string :item_type
+    end
+  end
+end
+#+end_src
+
+I then changed the 'app/models/user.rb' to the following name:
+- 'app/models/move.rb'
+
+I then changed the contents of the 'app/models/move.rb' file to the following:
+#+begin_src ruby
+class Move < ActiveRecord::Base
+    has_many :items
+end
+#+end_src
+
+I then ran the related migration again:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:migrate
+== 20220920013221 CreateMovesTable: migrating =================================
+-- create_table(:users)
+   -> 0.0010s
+== 20220920013221 CreateMovesTable: migrated (0.0011s) ========================
+
+== 20220921003339 CreateItemsTable: migrating =================================
+-- create_table(:items)
+   -> 0.0010s
+== 20220921003339 CreateItemsTable: migrated (0.0011s) ========================
+#+end_src

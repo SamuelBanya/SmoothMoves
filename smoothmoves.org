@@ -247,3 +247,103 @@ I then added the associated 'app/models/mover.rb' model with the following conte
 class Mover < ActiveRecord::Base
 end
 #+end_src
+
+<2022-09-21 Wed 13:40>: Notes From Office Hour Today:
+- Add a 'owner_id' to the items table migration
+- Drop the 'locations' table and just place it into users
+
+<2022-09-21 Wed>: After talking about these table relationships with my instructor, Ryan Parrish, I realized that the following SQL table relationships make more sense and are exactly aligned to the requirements of the project itself:
+- "users" table "has_many" "items"
+
+This relationship itself is reciprocal and because it involves two separate models, it fulfills the requirements of the assignment which is the following:
+- Have at least two models with a one-to-many relationship.
+
+I then rolled back my migrations so that I could edit them accordingly:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:rollback
+== 20220921020149 CreateMoversTable: reverting ================================
+-- drop_table(:movers)
+   -> 0.0017s
+== 20220921020149 CreateMoversTable: reverted (0.0046s) =======================
+
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:rollback
+== 20220921013908 CreateLocationsTable: reverting =============================
+-- drop_table(:locations)
+   -> 0.0009s
+== 20220921013908 CreateLocationsTable: reverted (0.0030s) ====================
+
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:rollback
+== 20220921003339 CreateItemsTable: reverting =================================
+-- drop_table(:items)
+   -> 0.0009s
+== 20220921003339 CreateItemsTable: reverted (0.0030s) ========================
+
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:rollback
+== 20220920013221 CreateUsersTable: reverting =================================
+-- drop_table(:users)
+   -> 0.0009s
+== 20220920013221 CreateUsersTable: reverted (0.0035s) ========================
+#+end_src
+
+I then removed the 'app/models/location.rb' and 'app/models/mover.rb' models.
+
+I then also removed their associated migrations as well.
+
+I then revised the '20220920013221_create_users_table.rb' file so that a user has a 'dropoff_location' and a 'pickup_location':
+#+begin_src ruby
+class CreateUsersTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :users do |t|
+      t.string :name
+      t.string :pickup_location
+      t.string :dropoff_location
+    end
+  end
+end
+#+end_src
+
+I then revised the '20220921003339_create_items_table.rb' file to include the following contents:
+#+begin_src ruby
+class CreateItemsTable < ActiveRecord::Migration[6.1]
+  def change
+    create_table :items do |t|
+      t.string :name
+      t.string :owner
+      t.integer :length
+      t.integer :width
+      t.integer :height
+      t.integer :weight
+      # Values include "loose" or "boxed"
+      t.string :item_type
+    end
+  end
+end
+#+end_src
+
+I then re-ran the related 'bundle exec rake db:migrate' command accordingly:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake db:migrate
+== 20220920013221 CreateUsersTable: migrating =================================
+-- create_table(:users)
+   -> 0.0011s
+== 20220920013221 CreateUsersTable: migrated (0.0012s) ========================
+
+== 20220921003339 CreateItemsTable: migrating =================================
+-- create_table(:items)
+   -> 0.0010s
+== 20220921003339 CreateItemsTable: migrated (0.0011s) ========================
+#+end_src
+
+I then revised the 'app/models/user.rb' file with the following contents:
+#+begin_src ruby
+class User < ActiveRecord::Base
+    has_many :items
+end
+#+end_src
+
+I then revised the 'app/models/item.rb' file with the following contents:
+#+begin_src ruby
+class Item < ActiveRecord::Base
+    belongs_to :item
+end
+#+end_src

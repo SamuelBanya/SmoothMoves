@@ -33,8 +33,8 @@ class ApplicationController < Sinatra::Base
   post "/moves/:id/items" do 
     # Related Docs page on 'collection.create' method:
     # https://guides.rubyonrails.org/association_basics.html#methods-added-by-has-many-collection-create-attributes
-    item = Item.create(params[:item_id])
-    item.update(
+    item = Item.create(
+      move_id: params[:id],
       name: params[:name],
       owner: params[:owner],
       length: params[:length],

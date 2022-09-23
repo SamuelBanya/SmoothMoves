@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2022_09_21_003339) do
     t.string "item_type"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "moves", force: :cascade do |t|
     t.string "pickup_location"
     t.string "dropoff_location"
   end

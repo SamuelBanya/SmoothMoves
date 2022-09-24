@@ -890,4 +890,67 @@ function About() {
         </div>
     )
 }
+
+export default About;
+#+end_src
+
+I then added the following to the 'Checklist.js' component:
+#+begin_src js
+import React from "react";
+
+function Checklist() {
+
+}
+
+export default Checklist;
+#+end_src
+
+I then added the following to the 'Email.js' component:
+#+begin_src js
+import React from "react";
+
+function Email() {
+
+}
+
+export default Email;
+#+end_src
+
+I then added the following to the 'Export.js' component:
+#+begin_src js
+import React from "react"
+
+function Export() {
+
+}
+
+export default Export;
+#+end_src
+
+I then added the following to the 'Form.js' component:
+#+begin_src js
+import React from "react";
+
+function Form() {
+    <div>
+        <h2>Form</h2>
+        <form>
+            <div>
+                <label htmlFor="pickupLocation"></label>
+                <input />
+                <label htmlFor="dropoffLocation"></label>
+                <input />
+                // NOTE: I need to iterate through the amount of items
+                // that the user wants to enter, and therefore ask
+                // them the following details for each item:
+                // Height, width, length (inches, later converted to square feet)
+                // Weight (lbs, pounds)
+            </div>
+            <br />
+            <button className="uploadButton" type="submit">Upload</button>
+        </form>
+    </div>
+}
+
+export default Form;
 #+end_src

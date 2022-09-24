@@ -710,3 +710,83 @@ samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec
 <2022-09-23 Fri 11:06>: Related Notes From Office Hour:
 - I need to utilize the 'collection.create()' method in this scenario so that I can create associated routes for the 'items' table itself since they need to piggyback off of the 'moves' table as per the 'has_many' Active Record macro:
 - https://guides.rubyonrails.org/association_basics.html#methods-added-by-has-many-collection-create-attributes
+* How I Created The Frontend Portion Of The Project
+<2022-09-24 Sat 16:30>: I started with basic React app with the related 'npx create-react-app smoothmoves-frontend' command.
+
+<2022-09-24 Sat 16:34>: I then referred to my previous notes in that you have to install 'v6' style routing components:
+- https://reactrouter.com/docs/en/v6/getting-started/overview
+I then used this command accordingly:
+#+begin_src bash
+npm install react-router-dom@6
+#+end_src
+
+Related output:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves-Frontend/smoothmoves-frontend $ ls
+README.md               node_modules            package-lock.json       package.json            public                  src
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves-Frontend/smoothmoves-frontend $ npm install react-router-dom@6
+
+added 3 packages, and audited 1453 packages in 3s
+
+209 packages are looking for funding
+  run `npm fund` for details
+
+6 high severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+#+end_src
+
+I then adjusted the contents of the '' file to include v6 style routes:
+#+begin_src js
+import logo from './logo.svg';
+import './App.css';
+import { Routes, Route } from "react-router-dom"
+
+function App() {
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<About />}/>
+        <Route path="/form" element={<Form />}/>
+        <Route path="/checklist" element={<Checklist />}/>
+        <Route path="/export" element={<Export />}/>
+        <Route path="/email" element={<Email />}/>
+      </Routes>
+    </div>
+  );
+}
+
+export default App;
+#+end_src
+
+<2022-09-24 Sat 16:47>: I then looked into including 'Material UI' as I know this is a CSS framework I always wanted to learn how to use, so I checked out their related installation guide:
+- https://mui.com/material-ui/getting-started/installation/
+
+I then did the following installation commands:
+#+begin_src bash
+npm install @mui/material @emotion/react @emotion/styled
+#+end_src
+
+Related output:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves-Frontend/smoothmoves-frontend $ pwd
+/Users/samuelbanya/hub/Development/code/phase-3/SmoothMoves-Frontend/smoothmoves-frontend
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves-Frontend/smoothmoves-frontend $ ls
+README.md               node_modules            package-lock.json       package.json            public                  src
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves-Frontend/smoothmoves-frontend $ npm install @mui/material @emotion/react @emotion/styled
+
+added 36 packages, and audited 1489 packages in 7s
+
+217 packages are looking for funding
+  run `npm fund` for details
+
+6 high severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+#+end_src

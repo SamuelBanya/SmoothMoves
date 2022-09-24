@@ -790,3 +790,41 @@ To address all issues (including breaking changes), run:
 
 Run `npm audit` for details.
 #+end_src
+
+I then noted that I needed to use the 'Roboto' font within any of the pages as well, so I made a note to use this stylesheet link on any page that needed it:
+#+begin_src css
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+/>
+#+end_src
+
+I also made a note to include the related 'Material Icons' font as well on any page that needed it:
+#+begin_src css
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+/>
+#+end_src
+
+I then installed the related '@mui/icons-material' package with the following command:
+#+begin_src bash
+npm install @mui/icons-material
+#+end_src
+
+Related output:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves-Frontend/smoothmoves-frontend $ npm install @mui/icons-material
+
+added 1 package, and audited 1490 packages in 8s
+
+218 packages are looking for funding
+  run `npm fund` for details
+
+6 high severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+#+end_src

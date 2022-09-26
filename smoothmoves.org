@@ -954,3 +954,39 @@ function Form() {
 
 export default Form;
 #+end_src
+
+<2022-09-26 Mon 16:42>: I then thought about it a bit further and realized I will need to somehow ask the user for the total amount of items they want to move, and iterate through that.
+
+I believe this MIGHT need multiple forms within the same 'Form' components, but I might be wrong.
+
+Regardless, I modified the 'Form.js' component with the following contents:
+#+begin_src js
+import React from "react";
+
+function Form() {
+    <div>
+        <h2>Form</h2>
+        <form>
+            <div>
+                <label htmlFor="pickupLocation"></label>
+                <input />
+                <label htmlFor="dropoffLocation"></label>
+                <input />
+                // NOTE: I need to iterate through the amount of items
+                // that the user wants to enter, and therefore ask
+                // them the following details for each item:
+                // Height, width, length (inches, later converted to square feet)
+                // Weight (lbs, pounds)
+                <label htmlFor="itemAmount"></label>
+                <input />
+            </div>
+            <br />
+            <button className="uploadButton" type="submit">Upload</button>
+        </form>
+    </div>
+}
+
+export default Form;
+#+end_src
+
+<2022-09-26 Mon 16:44>: I then realized I needed to actually place all of the HTML based forms in the 'return' statement of the React component anyway, so I modified them accordingly.

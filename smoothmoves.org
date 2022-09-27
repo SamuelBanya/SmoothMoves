@@ -990,3 +990,5 @@ export default Form;
 #+end_src
 
 <2022-09-26 Mon 16:44>: I then realized I needed to actually place all of the HTML based forms in the 'return' statement of the React component anyway, so I modified them accordingly.
+
+<2022-09-26 Mon 20:31>: I then added the basic foundation for the other components including the 'Email.js' and 'Export.js' component since they are going to be React controlled forms as well.

@@ -992,3 +992,6 @@ export default Form;
 <2022-09-26 Mon 16:44>: I then realized I needed to actually place all of the HTML based forms in the 'return' statement of the React component anyway, so I modified them accordingly.
 
 <2022-09-26 Mon 20:31>: I then added the basic foundation for the other components including the 'Email.js' and 'Export.js' component since they are going to be React controlled forms as well.
+
+<2022-09-27 Tue 20:00>: I did some research, and determined that since I want to use multi-step forms, this might be a great resource article to learn from since it has multiple screens with 'Next' and 'Previous' buttons to use in the form itself. This will involve multiple child components underneath the 'Form' parent, but I think it would be worth it for a more fluid user experience:
+- https://dev.to/sametweb/how-to-create-multi-step-forms-in-react-3km4

@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
       pickup_location: params[:pickup_location],
       dropoff_location: params[:dropoff_location]
     )
-    user.to_json(includes: :item)
+    move.to_json(includes: :item)
   end
 
   patch "/moves/:id" do 

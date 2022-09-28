@@ -710,6 +710,13 @@ samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec
 <2022-09-23 Fri 11:06>: Related Notes From Office Hour:
 - I need to utilize the 'collection.create()' method in this scenario so that I can create associated routes for the 'items' table itself since they need to piggyback off of the 'moves' table as per the 'has_many' Active Record macro:
 - https://guides.rubyonrails.org/association_basics.html#methods-added-by-has-many-collection-create-attributes
+
+<2022-09-28 Wed 18:35>: I also tested out the backend with this related rake command:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves $ bundle exec rake server
+#+end_src
+
+Using the port '9292', I was able to test the backend with Postman. However, I am having difficulties getting the 'PATCH' and 'DELETE' API endpoints to work.
 * How I Created The Frontend Portion Of The Project
 <2022-09-24 Sat 16:30>: I started with basic React app with the related 'npx create-react-app smoothmoves-frontend' command.
 

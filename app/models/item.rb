@@ -1,3 +1,3 @@
 class Item < ActiveRecord::Base
-    belongs_to :item
+    belongs_to :move
 end

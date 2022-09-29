@@ -1002,3 +1002,6 @@ export default Form;
 
 <2022-09-27 Tue 20:00>: I did some research, and determined that since I want to use multi-step forms, this might be a great resource article to learn from since it has multiple screens with 'Next' and 'Previous' buttons to use in the form itself. This will involve multiple child components underneath the 'Form' parent, but I think it would be worth it for a more fluid user experience:
 - https://dev.to/sametweb/how-to-create-multi-step-forms-in-react-3km4
+
+<2022-09-29 Thu 11:38>: I used this article as a reference guide to make a form based upon Material-UI:
+- https://onestepcode.com/creating-a-material-ui-form/

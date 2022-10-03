@@ -1005,3 +1005,31 @@ export default Form;
 
 <2022-09-29 Thu 11:38>: I used this article as a reference guide to make a form based upon Material-UI:
 - https://onestepcode.com/creating-a-material-ui-form/
+
+<2022-10-03 Mon 10:57>: This looks like two good reference links to use for creating a carousel type form for the item form itself:
+- Related blog post on 'Carousel' component:
+- https://statesnhooks.com/material-ui-carousel/
+- Related blog post that includes a related demo of the 'Carousel' component itself:
+- https://learus.github.io/react-material-ui-carousel/
+
+<2022-10-03 Mon 11:00>: I then ran this related command to install the 'react-material-ui-carousel' component:
+#+begin_src bash
+npm install react-material-ui-carousel
+#+end_src
+
+Related output:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/SmoothMoves-Frontend $ npm install react-material-ui-carousel
+
+added 8 packages, and audited 1498 packages in 5s
+
+218 packages are looking for funding
+  run `npm fund` for details
+
+6 high severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+#+end_src

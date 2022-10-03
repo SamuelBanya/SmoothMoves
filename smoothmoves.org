@@ -1040,3 +1040,4 @@ Run `npm audit` for details.
 - We would use use 'moves/:id' to access a given move that we created via the
 - I then create a separate 'ItemForm' component for the '/items' where the user could be prompted for how many items are associated with that given move
 - Then, I could create a child component called 'Item' which would contain each individual 'carousel' form that I could fill out individually
+- I would then maybe have to use the idea of 'nested' forms to pull this off

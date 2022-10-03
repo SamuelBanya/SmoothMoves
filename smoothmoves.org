@@ -1033,3 +1033,10 @@ To address all issues (including breaking changes), run:
 
 Run `npm audit` for details.
 #+end_src
+
+<2022-10-03 Mon 12:42>: Notes From Office Hour:
+- I need '/moves/new' for the '/moveform' route
+- I can also maybe use a '/moves/show' route, that would show each individual route, and you can then work on that given move to build a collection of items.
+- We would use use 'moves/:id' to access a given move that we created via the
+- I then create a separate 'ItemForm' component for the '/items' where the user could be prompted for how many items are associated with that given move
+- Then, I could create a child component called 'Item' which would contain each individual 'carousel' form that I could fill out individually

@@ -1041,3 +1041,9 @@ Run `npm audit` for details.
 - I then create a separate 'ItemForm' component for the '/items' where the user could be prompted for how many items are associated with that given move
 - Then, I could create a child component called 'Item' which would contain each individual 'carousel' form that I could fill out individually
 - I would then maybe have to use the idea of 'nested' forms to pull this off
+
+<2022-10-03 Mon 18:49>: I used this video as a guide up until timestamp, '1:01:34', since I think her usage of how she handled an 'Edit' functionality just looks plain awkward, and wouldn't make sense in my current workflow:
+- SE - Live - 101121 - Phase 2 - forms:
+- https://vimeo.com/642855398
+
+<2022-10-03 Mon 19:24>: I also referred to this video as a guide for understanding 'State' as recommended during the second Office Hour I attended today.

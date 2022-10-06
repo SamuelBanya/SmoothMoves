@@ -3,7 +3,6 @@ class CreateItemsTable < ActiveRecord::Migration[6.1]
     create_table :items do |t|
       t.integer :move_id
       t.string :name
-      t.string :owner
       t.integer :length
       t.integer :width
       t.integer :height

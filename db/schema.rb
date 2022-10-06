@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 2022_09_21_003339) do
   create_table "items", force: :cascade do |t|
     t.integer "move_id"
     t.string "name"
-    t.string "owner"
     t.integer "length"
     t.integer "width"
     t.integer "height"

@@ -1205,3 +1205,101 @@ function App() {
 
 export default App;
 #+end_src
+
+<2022-10-05 Wed 19:34>: I searched for a few examples that utilized the 'react-material-ui-carousel' library, and found these projects:
+- https://codesandbox.io/examples/package/react-material-ui-carousel
+
+I then used this CodeSandbox as an example to implement the '<Carousel>' tag into my project:
+- https://codesandbox.io/s/zx6om
+
+I then opted to use the '<NativeSelect>' tag for the 'item_type' property for each item as it was a bit simpler to use as per their related example from the Material UI docs page:
+- https://mui.com/material-ui/react-select/#native-select
+
+I also did some research on the '<Carousel>' tag's properties, and determined you can set the interval to a null value:
+- https://stackoverflow.com/questions/66110845/how-to-turn-off-autoplay-for-react-bootstrap-carousel
+
+Related null value example:
+#+begin_src js
+<Carousel interval={null}></Carousel>
+#+end_src
+
+Related example:
+#+begin_src js
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import NativeSelect from '@mui/material/NativeSelect';
+
+export default function NativeSelectDemo() {
+  return (
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel variant="standard" htmlFor="uncontrolled-native">
+          Age
+        </InputLabel>
+        <NativeSelect
+          defaultValue={30}
+          inputProps={{
+            name: 'age',
+            id: 'uncontrolled-native',
+          }}
+        >
+          <option value={10}>Ten</option>
+          <option value={20}>Twenty</option>
+          <option value={30}>Thirty</option>
+        </NativeSelect>
+      </FormControl>
+    </Box>
+  );
+}
+#+end_src
+
+<2022-10-05 Wed 19:35>: I also did a major overhaul to only incorporate 'MoveItem' and 'ItemForm' components as per the '/moves' and '/items' routes to meet the project's requirements.
+
+The biggest Catch 22 I have faced in this project was being able to try to figure out the 'UPDATE' button on the 'Edit Existing Move' section on the 'Move' component of the project.
+
+I tried doing some research and only found this StackOverflow post which basically just uses a Controlled Form example:
+- https://stackoverflow.com/questions/35791074/reactjs-how-can-i-set-a-value-for-textfield-from-material-ui
+
+I then did further digging and found a GitHub issue for React itself that mentions that you can even forgo the idea of using 'value' but at the cost of making it a non-controlled form:
+- https://github.com/facebook/react/issues/8053
+
+<2022-10-05 Wed 19:50>: The major issues that I still have for today include the following:
+The 'MoveForm' component:
+1. The 'Move > "Edit Existing Move" > DELETE' button doesn't work because of an error I am getting:
+#+begin_src js
+DELETE http://localhost:9292/moves/9 500 (Internal Server Error)
+Uncaught (in promise) SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+#+end_src
+
+More so, I think this is because my backend route isn't actually accounting for the 'id' value of the move itself, and still has legacy code that has 'user_id' associated with it in the 'app/controllers/application_controller.rb' file:
+#+begin_src ruby
+  delete "/moves/:id" do
+    move = Move.find(params[:user_id])
+    move.destroy()
+  end
+#+end_src
+
+I also tried using this lesson as a reference as well:
+- https://learning.flatironschool.com/courses/5286/assignments/172832?module_item_id=376873
+
+2. The 'Move > "Edit Existing Move" > dropdown list' does not update to a new location until I refresh the page.
+
+3. The 'Move > "Edit Existing Move" > UPDATE' button doesn't work since I can't edit the 'Pickup Location' and 'Dropoff Location' values since they're controlled by the 'value' property
+
+The 'ItemForm' component:
+4. I really don't know how I will be able to associate a 'Move' with corresponding 'Items' since you can enter in the amount of items and keep changing the 'Choose Move' dropdown, which isn't that great since this means you can't edit a specific move's items later on or delete them
+
+5. The 'Items > SUBMIT ALL ITEMS' button needs validation to ensure that each item has everything filled out before submission.
+
+6. I am not sure how to aggregate all of the data I have entered within the '<Carousel>' items I created within the 'Item' form to make a 'POST' request to the backend. The only thing I can think of is to associate the 'item #' or 'id' value with a specific 'id' value for each item.
+
+Aka I would have to loop through each of the items, and make a 'POST' request for each one somehow. Not sure if this idea would be resource intensive but it seems like the way to go.
+
+FIXED: 7. When you refresh the page for the 'Items' route, there is a ghosted artifact button for the 'Enter Item Info' section. This is because I am conditionally rendering the '<Button>' tag for the 'Submit All Items' section.
+
+<2022-10-05 Wed 20:19>: NOTE: I fixed this issue by literally setting the secondary value for the ternary statement to 'null':
+#+begin_src js
+{ itemsCarouselArray.length > 1 ? <Button variant="contained" color="primary" type="submit">Submit All Items</Button> : null}
+#+end_src

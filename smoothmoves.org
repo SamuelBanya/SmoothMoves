@@ -1303,3 +1303,20 @@ FIXED: 7. When you refresh the page for the 'Items' route, there is a ghosted ar
 #+begin_src js
 { itemsCarouselArray.length > 1 ? <Button variant="contained" color="primary" type="submit">Submit All Items</Button> : null}
 #+end_src
+
+<2022-10-06 Thu 10:43>: These are three major suggestions for solutions towards some of the issues I've been having with this project that I thought of as I was trying to sleep last night:
+1. Possible Solution 1:
+- Fix the 'UPDATE' portion of the 'Move' component so that I can at least get full credit for 1 model for a CRUD method at the bare minimum
+- Screw the idea of using a React controlled form in this scenario since there is nothing within the project requirements that states that I NEED to use a React controlled form
+- Using a React controlled form is ideal, but in this scenario, it is only working against me
+- The only thing I can think of to do this kind of action would be when the 'Move > Edit Existing Move >' select dropdown is changed via the 'useEffect()' hook, I should manually change the values of the 'Pickup Location' and 'Dropoff Location' sections accordingly by using 'document.getElementById()' and changing the 'defaultValue' properties of the fields accordingly --> OR even change them to normal <input> tags anyway to make it even easier and less dependent on Material UI
+
+2. Possible Solution 2:
+- Figure out how to make the Move > 'Edit Existing Move' > 'DELETE' button actually work with the Ruby based backend
+
+3. Possible Solution 3:
+- Figure out how to manage the routing situation for the 'Items' route aka 'ItemForm' component
+- The only thing I can think of is that instead of going off the user input for the Items > 'Item Amount' input field with looping, I should instead ACTUALLY call the backend to create the 'id' instances of each individual move / items route
+- How to do this, I have zero clue
+- I would need to also incorporate input validation to prevent the user from entering in an amount without selecting a move from the 'Select dropoff location'
+- However, once this is entered, this would then trigger a 'GET' request from the backend to display the current selected move's newly created 'items' from the backend

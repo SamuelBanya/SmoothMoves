@@ -1310,6 +1310,7 @@ FIXED: 7. When you refresh the page for the 'Items' route, there is a ghosted ar
 - Screw the idea of using a React controlled form in this scenario since there is nothing within the project requirements that states that I NEED to use a React controlled form
 - Using a React controlled form is ideal, but in this scenario, it is only working against me
 - The only thing I can think of to do this kind of action would be when the 'Move > Edit Existing Move >' select dropdown is changed via the 'useEffect()' hook, I should manually change the values of the 'Pickup Location' and 'Dropoff Location' sections accordingly by using 'document.getElementById()' and changing the 'defaultValue' properties of the fields accordingly --> OR even change them to normal <input> tags anyway to make it even easier and less dependent on Material UI
+- Another idea would be to literally allow the user to swap the 'pickup_location' and 'dropoff_location' with a 'SWAP LOCATION' button so that I can manually swap the values via a callback function to the parent 'App.js' component
 
 2. Possible Solution 2:
 - Figure out how to make the Move > 'Edit Existing Move' > 'DELETE' button actually work with the Ruby based backend

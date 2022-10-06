@@ -1288,6 +1288,17 @@ I also tried using this lesson as a reference as well:
 
 3. The 'Move > "Edit Existing Move" > UPDATE' button doesn't work since I can't edit the 'Pickup Location' and 'Dropoff Location' values since they're controlled by the 'value' property
 
+FIXED: 4. The 'Move > "Edit Existing Move" > DELETE' button doesn't work to actually delete a given move --> <2022-10-06 Thu 13:56>: I resolved this issue, though it does produce this in console:
+#+begin_src bash
+VM594:1 Uncaught (in promise) SyntaxError: Unexpected end of JSON input
+    at App.js:98:1
+#+end_src
+
+Also, it doesn't actually delete the data until I refresh the page.
+
+I tried researching the above error, and found a related StackOverflow post about a few people complaining about CORS errors when using ExpressJS to deploy their projects:
+- https://stackoverflow.com/questions/43362431/uncaught-in-promise-syntaxerror-unexpected-end-of-json-input
+
 The 'ItemForm' component:
 4. I really don't know how I will be able to associate a 'Move' with corresponding 'Items' since you can enter in the amount of items and keep changing the 'Choose Move' dropdown, which isn't that great since this means you can't edit a specific move's items later on or delete them
 

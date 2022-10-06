@@ -16,7 +16,7 @@ class ApplicationController < Sinatra::Base
   end
 
   patch "/moves/:id" do 
-    move = Move.find(params[:user_id])
+    move = Move.find(params[:id])
     move.update(
       pickup_location: params[:pickup_location],
       dropoff_location: params[:dropoff_location]
@@ -25,7 +25,7 @@ class ApplicationController < Sinatra::Base
   end
 
   delete "/moves/:id" do 
-    move = Move.find(params[:user_id])
+    move = Move.find(params[:id])
     move.destroy()
   end
 

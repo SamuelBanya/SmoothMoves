@@ -1267,37 +1267,41 @@ I then did further digging and found a GitHub issue for React itself that mentio
 
 <2022-10-05 Wed 19:50>: The major issues that I still have for today include the following:
 The 'MoveForm' component:
-1. The 'Move > "Edit Existing Move" > DELETE' button doesn't work because of an error I am getting:
-#+begin_src js
-DELETE http://localhost:9292/moves/9 500 (Internal Server Error)
-Uncaught (in promise) SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-#+end_src
-
-More so, I think this is because my backend route isn't actually accounting for the 'id' value of the move itself, and still has legacy code that has 'user_id' associated with it in the 'app/controllers/application_controller.rb' file:
-#+begin_src ruby
-  delete "/moves/:id" do
-    move = Move.find(params[:user_id])
-    move.destroy()
-  end
-#+end_src
-
-I also tried using this lesson as a reference as well:
-- https://learning.flatironschool.com/courses/5286/assignments/172832?module_item_id=376873
-
-2. The 'Move > "Edit Existing Move" > dropdown list' does not update to a new location until I refresh the page.
-
-3. The 'Move > "Edit Existing Move" > UPDATE' button doesn't work since I can't edit the 'Pickup Location' and 'Dropoff Location' values since they're controlled by the 'value' property
-
-FIXED: 4. The 'Move > "Edit Existing Move" > DELETE' button doesn't work to actually delete a given move --> <2022-10-06 Thu 13:56>: I resolved this issue, though it does produce this in console:
+FIXED: 1. The 'Move > "Edit Existing Move" > DELETE' button doesn't work to actually delete a given move --> <2022-10-06 Thu 13:56>: I resolved this issue, though it does produce this in console:
 #+begin_src bash
 VM594:1 Uncaught (in promise) SyntaxError: Unexpected end of JSON input
     at App.js:98:1
 #+end_src
 
-Also, it doesn't actually delete the data until I refresh the page.
+I also tried using this lesson as a reference as well:
+- https://learning.flatironschool.com/courses/5286/assignments/172832?module_item_id=376873
+
+I got this to delete the given move, but it doesn't actually delete the data until I refresh the page.
 
 I tried researching the above error, and found a related StackOverflow post about a few people complaining about CORS errors when using ExpressJS to deploy their projects:
 - https://stackoverflow.com/questions/43362431/uncaught-in-promise-syntaxerror-unexpected-end-of-json-input
+
+I also tried using this lesson as a reference as well:
+- https://learning.flatironschool.com/courses/5286/assignments/172832?module_item_id=376873
+
+2. The 'Move > "Edit Existing Move" > dropdown list' does not update any new locations until I refresh the page.
+
+3. The 'Move > "Edit Existing Move" > UPDATE' button doesn't work since I can't edit the 'Pickup Location' and 'Dropoff Location' based '<TextField>' Material UI tags since they're controlled by the 'value' property, which is supposed to be controlled by default. In order to make them uncontrolled, 'defaultValue' can be used, but this doesn't seem to work either.
+
+<2022-10-06 Thu 14:04>: Related research on this:
+- StackOverflow post:
+- https://stackoverflow.com/questions/46118340/i-cant-edit-text-field-in-material-ui
+- Section from StackOverFlow post above that mentions this:
+#+begin_src text
+If you pass value as a prop to TextField you can't change that text! On Material-UI official documentation they have used defaultValue="default val" as a prop. So I used defaultValue as a prop! It worked fine for me!
+#+end_src
+#+begin_src js
+<TextField
+   type="text"
+   defaultValue={this.props.val}
+   onChange={handleChange}
+/>
+#+end_src
 
 The 'ItemForm' component:
 4. I really don't know how I will be able to associate a 'Move' with corresponding 'Items' since you can enter in the amount of items and keep changing the 'Choose Move' dropdown, which isn't that great since this means you can't edit a specific move's items later on or delete them
@@ -1316,19 +1320,25 @@ FIXED: 7. When you refresh the page for the 'Items' route, there is a ghosted ar
 #+end_src
 
 <2022-10-06 Thu 10:43>: These are three major suggestions for solutions towards some of the issues I've been having with this project that I thought of as I was trying to sleep last night:
-1. Possible Solution 1:
+Idea 1:
 - Fix the 'UPDATE' portion of the 'Move' component so that I can at least get full credit for 1 model for a CRUD method at the bare minimum
 - Screw the idea of using a React controlled form in this scenario since there is nothing within the project requirements that states that I NEED to use a React controlled form
 - Using a React controlled form is ideal, but in this scenario, it is only working against me
 - The only thing I can think of to do this kind of action would be when the 'Move > Edit Existing Move >' select dropdown is changed via the 'useEffect()' hook, I should manually change the values of the 'Pickup Location' and 'Dropoff Location' sections accordingly by using 'document.getElementById()' and changing the 'defaultValue' properties of the fields accordingly --> OR even change them to normal <input> tags anyway to make it even easier and less dependent on Material UI
 - Another idea would be to literally allow the user to swap the 'pickup_location' and 'dropoff_location' with a 'SWAP LOCATION' button so that I can manually swap the values via a callback function to the parent 'App.js' component
 
-2. Possible Solution 2:
+Idea 2:
 - Figure out how to make the Move > 'Edit Existing Move' > 'DELETE' button actually work with the Ruby based backend
 
-3. Possible Solution 3:
+Idea 3:
 - Figure out how to manage the routing situation for the 'Items' route aka 'ItemForm' component
 - The only thing I can think of is that instead of going off the user input for the Items > 'Item Amount' input field with looping, I should instead ACTUALLY call the backend to create the 'id' instances of each individual move / items route
 - How to do this, I have zero clue
 - I would need to also incorporate input validation to prevent the user from entering in an amount without selecting a move from the 'Select dropoff location'
 - However, once this is entered, this would then trigger a 'GET' request from the backend to display the current selected move's newly created 'items' from the backend
+
+<2022-10-06 Thu 20:55>: After a ton of refactoring, the main issues with this project for basic functionality that still remain include the following:
+1. Move > 'Edit Existing Move' > 'UPDATE' button does not work
+2. Move > 'Edit Existing Move' > 'DELETE' button only works upon refreshing the page
+3. Items > 'Enter Item Info' > 'Item # (number)' > 'DELETE' button doesn't work
+4. Items > 'Enter Item Info' > 'Item # (number)' > 'SUBMIT ALL ITEMS' doesn't work since I'm not sure how to handle all of the data from the <Carousel> item data I have collected so far

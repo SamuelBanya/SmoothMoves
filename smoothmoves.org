@@ -1342,3 +1342,19 @@ Idea 3:
 2. Move > 'Edit Existing Move' > 'DELETE' button only works upon refreshing the page
 3. Items > 'Enter Item Info' > 'Item # (number)' > 'DELETE' button doesn't work
 4. Items > 'Enter Item Info' > 'Item # (number)' > 'SUBMIT ALL ITEMS' doesn't work since I'm not sure how to handle all of the data from the <Carousel> item data I have collected so far
+
+<2022-10-07 Fri 11:07>: Notes for the workflow on how to create the 'Items' component's API calls to the backend:
+- Items is an array
+#+begin_src js
+const newItems = [...move.items, item]
+#+end_src
+- With 'move', update state for 'move' --> find the move
+- Once you find the move, reach into the 'moves' array which is in state
+#+begin_src js
+const updatedMove = {...move, items: newItems}
+const updatedMoves = moves.map((move) => move.id === updatedMove.id ? updatedMove : move);
+setMoves(updatedMoves);
+#+end_src
+
+<2022-10-07 Fri 11:38>: Another note on how to make sure the 'Move' > Edit Existing Move > DELETE button:
+- I need to make sure it updates state in the same fashion as what I did for the UPDATE button in the same section

@@ -30,38 +30,17 @@ class ApplicationController < Sinatra::Base
     move.to_json(includes: :item)
   end
 
-  # Goal: Create a route that creates individual items based upon a specific move:
   post "/moves/:id/items" do 
     # Related Docs page on 'collection.create' method:
     # https://guides.rubyonrails.org/association_basics.html#methods-added-by-has-many-collection-create-attributes
     item = Item.create(
       move_id: params[:id],
       name: params[:name],
-      owner: params[:owner],
       length: params[:length],
       width: params[:width],
       height: params[:height],
       weight: params[:weight],
     )
-    item.to_json()
-  end
- 
-  patch "/items/:id" do 
-    item = Item.find(params[:item_id])
-    item.update(
-      name: params[:name],
-      owner: params[:owner],
-      length: params[:length],
-      width: params[:width],
-      height: params[:height],
-      weight: params[:weight],
-    )
-    item.to_json()
-  end
-
-  delete "/items/:id" do 
-    item = Item.find(params[:item_id])
-    item.destroy()
     item.to_json()
   end
 end

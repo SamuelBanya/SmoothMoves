@@ -1383,3 +1383,54 @@ I need to somehow figure out how to aggregate the data present so that I can sen
 
 <2022-10-08 Sat 23:57>: I did more research, and this is the only kind of example that somewhat got close, but they ultimately just used callback functions in the parent component anyway, and it still doesn't have multiple forms within a parent component:
 - https://www.agirl.codes/complete-guide-build-react-forms-with-usestate-hook
+
+
+<2022-10-09 Sun 16:33>: I refactored my components so that 'moves' is only called via 'useEffect' once within the parent 'App.js' component level to avoid having to use duplicative work in both the 'Moves' and 'Items' child components.
+
+This is the major revision I did within the parent 'App.js' component level accordingly which I passed the 'moves' useState variable down as props to the child components:
+#+begin_src js
+import logo from './logo.svg';
+import './App.css';
+import { Routes, Route } from "react-router-dom";
+import About from "./components/generalComponents/About";
+import Moves from "./components/moveComponents/Moves";
+import Items from "./components/itemComponents/Items";
+import NavBar from "./components/generalComponents/NavBar";
+import React, { useState, useEffect } from "react";
+
+function App() {
+  const [moves, setMoves] = useState([]);
+  useEffect(() => {
+      fetch("http://localhost:9292/moves", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        setMoves(data);
+      })
+    }, [moves]);
+
+  return (
+    <div className="App">
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<About />}/>
+        <Route path="/moves"
+          element={<Moves moves={moves} setMoves={setMoves}/>}
+        />
+        <Route path="/items"
+          element={<Items moves={moves}/>}
+        />
+      </Routes>
+    </div>
+  );
+}
+
+export default App;
+#+end_src
+
+I also revised the backend so that I excluded the previous 'DELETE' and 'PATCH' methods for the 'Items' table itself because the workflow I have for my current app doesn't need the items to be revised or edited as this is the frontend's job to do so BEFORE the final submission is made.

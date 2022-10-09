@@ -1376,3 +1376,7 @@ It's worth another refactor later, but to make sure I get this project done in t
 I also figured out how to use the callback function so that I could send data from the child to the parent component, as this is the only way to do this in React aka via a callback function in the first place.
 
 It's slightly awkward in structure, but I think this meets the overall accepted React controlled form design flow without having to be too confusing to be able to come back to later anyway.
+
+<2022-10-08 Sat 22:26>: I realized I made a huge mistake in that if I set the form data on the parent level, then each individual 'ItemCard' component is updated to a SINGLE set of form data, as opposed to having their own individual data values.
+
+I need to somehow figure out how to aggregate the data present so that I can send it up to the parent 'ItemsForm' component to make the appropriate POST requests to the backend to create each individual call to the '/moves/:id/items' API endpoint.

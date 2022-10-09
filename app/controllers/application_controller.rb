@@ -15,6 +15,11 @@ class ApplicationController < Sinatra::Base
     move.to_json(includes: :item)
   end
 
+  get "/moves/:id" do
+    move = Move.find(params[:id])
+    move.to_json(includes :item)
+  end
+
   patch "/moves/:id" do 
     move = Move.find(params[:id])
     move.update(
@@ -27,6 +32,7 @@ class ApplicationController < Sinatra::Base
   delete "/moves/:id" do 
     move = Move.find(params[:id])
     move.destroy()
+    move.to_json(includes: :item)
   end
 
   # Goal: Create a route that creates individual items based upon a specific move:

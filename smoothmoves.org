@@ -1366,3 +1366,7 @@ Reason being is that in the overall workflow of the app itself, it actually does
 I could literally make 19 items that are 'boxes' in the 'name' property value itself, and include 1 loose item.
 
 Realistically, you can create 19 boxes, and then 1 or 2 loose items, and you would be fine since the moving company only really cares about the dimensions of items and their associated weight.
+
+<2022-10-08 Sat 21:39>: I then decided to refactor my 'ItemsForm' to include the multiple functions as functions within the 'ItemsForm' component itself. Reason being is that passing props up and down is very hard in this scenario, and I just want things to work without being too confusing here.
+
+It's worth another refactor later, but to make sure I get this project done in time, this is the way we're going to get this to work for the time being.

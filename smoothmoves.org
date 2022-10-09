@@ -1370,3 +1370,9 @@ Realistically, you can create 19 boxes, and then 1 or 2 loose items, and you wou
 <2022-10-08 Sat 21:39>: I then decided to refactor my 'ItemsForm' to include the multiple functions as functions within the 'ItemsForm' component itself. Reason being is that passing props up and down is very hard in this scenario, and I just want things to work without being too confusing here.
 
 It's worth another refactor later, but to make sure I get this project done in time, this is the way we're going to get this to work for the time being.
+
+<2022-10-08 Sat 22:17>: I then decided to still keep "ItemCard" as its own React component because ultimately, it is returning some complicated JSX output as its own thing, so it really deserves its own component.
+
+I also figured out how to use the callback function so that I could send data from the child to the parent component, as this is the only way to do this in React aka via a callback function in the first place.
+
+It's slightly awkward in structure, but I think this meets the overall accepted React controlled form design flow without having to be too confusing to be able to come back to later anyway.

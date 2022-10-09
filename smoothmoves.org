@@ -1358,3 +1358,11 @@ setMoves(updatedMoves);
 
 <2022-10-07 Fri 11:38>: Another note on how to make sure the 'Move' > Edit Existing Move > DELETE button:
 - I need to make sure it updates state in the same fashion as what I did for the UPDATE button in the same section
+
+<2022-10-08 Sat 21:15>: I made the choice to pullback my idea of using the 'item_type' property on the backend for the 'Item' table.
+
+Reason being is that in the overall workflow of the app itself, it actually doesn't even matter if the item is boxed or loose.
+
+I could literally make 19 items that are 'boxes' in the 'name' property value itself, and include 1 loose item.
+
+Realistically, you can create 19 boxes, and then 1 or 2 loose items, and you would be fine since the moving company only really cares about the dimensions of items and their associated weight.

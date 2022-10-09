@@ -7,8 +7,6 @@ class CreateItemsTable < ActiveRecord::Migration[6.1]
       t.integer :width
       t.integer :height
       t.integer :weight
-      # Values include "loose" or "boxed"
-      t.string :item_type
     end
   end
 end

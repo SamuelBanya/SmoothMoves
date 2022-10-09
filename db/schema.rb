@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 2022_09_21_003339) do
     t.integer "width"
     t.integer "height"
     t.integer "weight"
-    t.string "item_type"
   end
 
   create_table "moves", force: :cascade do |t|

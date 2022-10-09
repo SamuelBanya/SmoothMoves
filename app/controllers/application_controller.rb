@@ -15,11 +15,6 @@ class ApplicationController < Sinatra::Base
     move.to_json(includes: :item)
   end
 
-  get "/moves/:id" do
-    move = Move.find(params[:id])
-    move.to_json(includes :item)
-  end
-
   patch "/moves/:id" do 
     move = Move.find(params[:id])
     move.update(
@@ -47,7 +42,6 @@ class ApplicationController < Sinatra::Base
       width: params[:width],
       height: params[:height],
       weight: params[:weight],
-      item_type: params[:item_type]
     )
     item.to_json()
   end
@@ -61,7 +55,6 @@ class ApplicationController < Sinatra::Base
       width: params[:width],
       height: params[:height],
       weight: params[:weight],
-      item_type: params[:item_type]
     )
     item.to_json()
   end

@@ -1380,3 +1380,6 @@ It's slightly awkward in structure, but I think this meets the overall accepted 
 <2022-10-08 Sat 22:26>: I realized I made a huge mistake in that if I set the form data on the parent level, then each individual 'ItemCard' component is updated to a SINGLE set of form data, as opposed to having their own individual data values.
 
 I need to somehow figure out how to aggregate the data present so that I can send it up to the parent 'ItemsForm' component to make the appropriate POST requests to the backend to create each individual call to the '/moves/:id/items' API endpoint.
+
+<2022-10-08 Sat 23:57>: I did more research, and this is the only kind of example that somewhat got close, but they ultimately just used callback functions in the parent component anyway, and it still doesn't have multiple forms within a parent component:
+- https://www.agirl.codes/complete-guide-build-react-forms-with-usestate-hook

@@ -1720,3 +1720,9 @@ function ItemCard({ id, reducer }) {
 
 export default ItemCard;
 #+end_src
+
+<2022-10-09 Sun 23:21>: Just so I can pivot to make myself feel a bit better for not knowing how to deal with the 'useReducer' hook function, I went ahead and changed the CSS styling of the overall app itself to include more of a tropical or island theme.
+
+I did some research and discovered that you can use the 'ThemeProvider' component from Material UI in order to create custom themes, and utilized these two links heavily in doing so:
+- https://stackoverflow.com/questions/58145998/how-to-import-and-use-a-custom-font-in-a-material-ui-theme
+- https://mui.com/material-ui/customization/theming/

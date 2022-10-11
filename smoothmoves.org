@@ -1726,3 +1726,10 @@ export default ItemCard;
 I did some research and discovered that you can use the 'ThemeProvider' component from Material UI in order to create custom themes, and utilized these two links heavily in doing so:
 - https://stackoverflow.com/questions/58145998/how-to-import-and-use-a-custom-font-in-a-material-ui-theme
 - https://mui.com/material-ui/customization/theming/
+
+<2022-10-10 Mon 21:04>: I did some heavy CSS edits to the project itself, and also heavily referred to the 'Button 53' example from this particular blog post on CSS styled buttons:
+- https://getcssscan.com/css-buttons-examples
+
+I tried to utilize this amazing blog post with its corresponding 'Codesandbox' example page for some inspiration, but the CSS present are really meant for vanilla HTML5+CSS3, so it doesn't translate well to React's 'NavLink' based CSS components since they utilize a lot of effects for the transitions present:
+- https://uicookies.com/link-style-css/
+- https://codepen.io/hafizfattah/pen/qBRQXe

@@ -30,6 +30,12 @@ class ApplicationController < Sinatra::Base
     move.to_json(includes: :item)
   end
 
+  # NOTE: This is just to test if we are actually receiving any 'items' that are sent via POST requests from the frontend:
+  get "/moves/:id/items" do
+    move = Move.find(params[:id])
+    move.to_json(includes: :item)
+  end
+
   post "/moves/:id/items" do 
     # Related Docs page on 'collection.create' method:
     # https://guides.rubyonrails.org/association_basics.html#methods-added-by-has-many-collection-create-attributes

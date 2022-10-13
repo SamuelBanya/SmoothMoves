@@ -1792,3 +1792,85 @@ a{
   max-width: 100%;
 }
 #+end_src
+
+<2022-10-11 Tue 15:18>: I did some manipulation on the backend and was able to adjust the '/moves/:id/items' route with the following revision in the 'app/controllers/application_controller.rb' file:
+#+begin_src ruby
+class ApplicationController < Sinatra::Base
+  set :default_content_type, "application/json"
+
+  # Add your routes here
+  get "/moves" do
+    moves = Move.all()
+    moves.to_json(includes: :item)
+  end
+
+  post "/moves" do
+    move = Move.create(
+      pickup_location: params[:pickup_location],
+      dropoff_location: params[:dropoff_location]
+    )
+    move.to_json(includes: :item)
+  end
+
+  patch "/moves/:id" do
+    move = Move.find(params[:id])
+    move.update(
+      pickup_location: params[:pickup_location],
+      dropoff_location: params[:dropoff_location]
+    )
+    move.to_json(includes: :item)
+  end
+
+  delete "/moves/:id" do
+    move = Move.find(params[:id])
+    move.destroy()
+    move.to_json(includes: :item)
+  end
+
+  # NOTE: This is just to test if we are actually receiving any 'items' that are sent via POST requests from the frontend:
+  get "/moves/:id/items" do
+    move = Move.find(params[:id])
+    move.to_json(include: :items)
+  end
+
+  post "/moves/:id/items" do
+    # Related Docs page on 'collection.create' method:
+    # https://guides.rubyonrails.org/association_basics.html#methods-added-by-has-many-collection-create-attributes
+    item = Item.create(
+      move_id: params[:id],
+      name: params[:name],
+      length: params[:length],
+      width: params[:width],
+      height: params[:height],
+      weight: params[:weight],
+    )
+    item.to_json()
+  end
+
+  # Test to see how I can create a specific route for "/moves/:id/items" route to loop through the array of objects
+  # that are provided to it
+  post "/test" do
+    # Related Docs page on 'collection.create' method:
+    # https://guides.rubyonrails.org/association_basics.html#methods-added-by-has-many-collection-create-attributes
+    # Use .each() method or .for() loop iterate through the entire array
+    item = Item.create(
+      move_id: 2,
+      name: params["items"][0]["name"]
+      # length: params[:length],
+      # width: params[:width],
+      # height: params[:height],
+      # weight: params[:weight],
+    )
+    item.to_json()
+    # binding.pry
+
+  end
+end
+#+end_src
+
+This resulted in the following route actually producing data when I visited the move with the ':id' value of '2':
+- http://localhost:9292/moves/2/items
+
+<2022-10-12 Wed 17:04>: I have been trying to figure out how to properly create an array of objects from the individual 'itemFormData' controlled form results up to the parent 'ItemsForm' component so that I can make the proper POST request for each item in the '/moves/:id/items' API endpoint. I found these two particular links as references to maybe having to use the 'useState' and 'useEffect' hooks:
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+- https://stackoverflow.com/questions/33088482/onchange-in-react-doesnt-capture-the-last-character-of-text

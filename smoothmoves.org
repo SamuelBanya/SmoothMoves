@@ -1874,3 +1874,25 @@ This resulted in the following route actually producing data when I visited the 
 <2022-10-12 Wed 17:04>: I have been trying to figure out how to properly create an array of objects from the individual 'itemFormData' controlled form results up to the parent 'ItemsForm' component so that I can make the proper POST request for each item in the '/moves/:id/items' API endpoint. I found these two particular links as references to maybe having to use the 'useState' and 'useEffect' hooks:
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 - https://stackoverflow.com/questions/33088482/onchange-in-react-doesnt-capture-the-last-character-of-text
+
+<2022-10-13 Thu 16:30>: I am trying to figure out how exactly to keep the current controlled form data in state when the React controlled form gets unmounted. The closest StackOverflow post on this topic includes the following:
+- https://stackoverflow.com/questions/31352261/how-to-keep-react-component-state-between-mount-unmount
+
+Here's a related GitHub issues page in which someone was trying to do a very similar workflow to what I was trying to do with a React controlled form:
+- https://github.com/react-hook-form/react-hook-form/issues/186
+
+I also found this pretty complicated React example that tries to create a dynamic wizard form as well, but it does NOT utilize the idea of creating a bunch of form items like mine unfortunately:
+- https://codesandbox.io/s/mui-rfhv6-001-xy39c
+
+I actually found a really nice signup page looking wizard form here as well:
+- https://codesandbox.io/s/wb6gs
+
+<2022-10-13 Thu 16:43>: Another workflow thing I could have done in this scenario was to instead just have a 'Add an item' section where the user can just add each individual item with a button.
+
+However, the fact that I'm using a carousel form is great though because this is the kind of functionality I would expect anyway.
+
+<2022-10-13 Thu 16:47>: This example page isn't even mentioning ANY of the libraries I've used, but it discusses the 'react-final-form' package, and it's users have the same mounted / unmounted issue I am running into for this wizard field:
+- https://github.com/final-form/react-final-form/issues/803
+
+<2022-10-13 Thu 16:55>: I did more searching, and honestly, I wish I had known about this particular package called 'react-step-wizard' as this would have been a better option in this scenario:
+- https://www.npmjs.com/package/react-step-wizard

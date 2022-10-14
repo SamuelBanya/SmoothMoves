@@ -50,22 +50,9 @@ class ApplicationController < Sinatra::Base
     item.to_json()
   end
 
-  # Test to see how I can create a specific route for "/moves/:id/items" route to loop through the array of objects
-  # that are provided to it
-  post "/test" do 
-    # Related Docs page on 'collection.create' method:
-    # https://guides.rubyonrails.org/association_basics.html#methods-added-by-has-many-collection-create-attributes
-    # Use .each() method or .for() loop iterate through the entire array
-    item = Item.create(
-      move_id: 2,
-      name: params["items"][0]["name"]
-      # length: params[:length],
-      # width: params[:width],
-      # height: params[:height],
-      # weight: params[:weight],
-    )
-    item.to_json()
-    # binding.pry
-
+  post "/test/:id" do 
+    move = Move.find(params[:id])
+    newItems = move.items.create(params[:items])
+    move.to_json(include: :items)
   end
 end

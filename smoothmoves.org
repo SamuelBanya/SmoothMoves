@@ -1896,3 +1896,13 @@ However, the fact that I'm using a carousel form is great though because this is
 
 <2022-10-13 Thu 16:55>: I did more searching, and honestly, I wish I had known about this particular package called 'react-step-wizard' as this would have been a better option in this scenario:
 - https://www.npmjs.com/package/react-step-wizard
+
+<2022-10-13 Thu 21:05>: After reading that issues page for the unrelated 'react-final-form' library (https://github.com/final-form/react-final-form/issues/803), I observed a few hacky type solutions to the 'unmounted' wizard form issue I came across:
+
+First Hacky Solution (Quote)
+- You could potentially raise the <Form> component up into the parent and then do some sort of conditional validation for each page, but then you've got a whole myriad of other problems to deal with.
+
+Second Hacky Solution (Quote)
+- What we ended up actually doing was creating a fake Field component, which lived beside the accordion.
+- It would watch for form changes, and set its own dirty field state to true when a change is made.
+- So when an accordion item closes, this fake Field would never become unmounted, and therefore the overall form's dirty state won't get set back to false.

@@ -1894,7 +1894,8 @@ However, the fact that I'm using a carousel form is great though because this is
 <2022-10-13 Thu 16:47>: This example page isn't even mentioning ANY of the libraries I've used, but it discusses the 'react-final-form' package, and it's users have the same mounted / unmounted issue I am running into for this wizard field:
 - https://github.com/final-form/react-final-form/issues/803
 
-<2022-10-13 Thu 16:55>: I did more searching, and honestly, I wish I had known about this particular package called 'react-step-wizard' as this would have been a better option in this scenario, here are my related notes:
+<2022-10-13 Thu 16:55>: 'react-step-wizard' Notes:
+- I did more searching, and honestly, I wish I had known about this particular package called 'react-step-wizard' as this would have been a better option in this scenario, here are my related notes:
 - https://www.npmjs.com/package/react-step-wizard
 - This is the official example of the 'react-step-wizard':
 - https://jcmcneal.github.io/react-step-wizard/app/
@@ -1918,3 +1919,20 @@ Second Hacky Solution (Quote)
 - https://reactjs-bot.github.io/react/docs/lists-conditional-rendering.html
 
 Based on the behavior of what's happening, the 'renderedChecklistItems' is getting it's values reset for some reason, which I have absolutely no idea why this is occurring.
+
+<2022-10-14 Fri 01:06>: I took a deeper dive, and tried a few examples with console.log() based output, and realized that the only issue for 'newTotalItemsArray' is that the very first element is the one that doesn't have the most updated information for its value. I'm not sure if this is a side effect of the fact that its the first element, or the 'unmounting' phenomenon mentioned above.
+
+However, at least its not happening for ALL forms after it. This is good to some extent so that I can narrow down the 'Why' this is occurring.
+
+<2022-10-14 Fri 01:47>: I also narrowed it down to the fact that the 'totalItemsArray' is pretty much THE culprit in this scenario, which lives in the 'collectItemFormData' function in the parent ItemsForm component. For some reason, the first item is not being updated accordingly.
+
+These are my other notes regarding this issue:
+- ONLY the first item in the form returns a blank result until you go back and add a value to the controlled form, which needs to be fixed
+- I think it's because of the very first time the 'useState' hook is called for 'itemFormData', it is adding the default 'zeroed' values above from 'itemFormData' to the beginning of the list
+- I think this is something to do with how 'totalItemsArray' is being updated for the VERY first item
+
+<2022-10-14 Fri 01:50>: To keep pressing slightly forward, I found a really good example to use as a basis for the checklist portion to display at the bottom of the page since this example uses Material UI as well:
+- https://codesandbox.io/s/3jwge?file=/src/App.js
+
+I did separate research and found the '' component from Material UI as well so I'll probably just use this by default in the most basic way possible:
+- https://mui.com/material-ui/api/checkbox/

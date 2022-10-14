@@ -1894,8 +1894,12 @@ However, the fact that I'm using a carousel form is great though because this is
 <2022-10-13 Thu 16:47>: This example page isn't even mentioning ANY of the libraries I've used, but it discusses the 'react-final-form' package, and it's users have the same mounted / unmounted issue I am running into for this wizard field:
 - https://github.com/final-form/react-final-form/issues/803
 
-<2022-10-13 Thu 16:55>: I did more searching, and honestly, I wish I had known about this particular package called 'react-step-wizard' as this would have been a better option in this scenario:
+<2022-10-13 Thu 16:55>: I did more searching, and honestly, I wish I had known about this particular package called 'react-step-wizard' as this would have been a better option in this scenario, here are my related notes:
 - https://www.npmjs.com/package/react-step-wizard
+- This is the official example of the 'react-step-wizard':
+- https://jcmcneal.github.io/react-step-wizard/app/
+- This is another great live example of the 'react-step-wizard' from Codesandbox:
+- https://codesandbox.io/s/j5mcq?file=/src/sample.js
 
 <2022-10-13 Thu 21:05>: After reading that issues page for the unrelated 'react-final-form' library (https://github.com/final-form/react-final-form/issues/803), I observed a few hacky type solutions to the 'unmounted' wizard form issue I came across:
 
@@ -1906,3 +1910,11 @@ Second Hacky Solution (Quote)
 - What we ended up actually doing was creating a fake Field component, which lived beside the accordion.
 - It would watch for form changes, and set its own dirty field state to true when a change is made.
 - So when an accordion item closes, this fake Field would never become unmounted, and therefore the overall form's dirty state won't get set back to false.
+
+<2022-10-13 Thu 23:58>: I did more research on how to fix the issue of an unmounted component and found this StackOverflow post on the topic of using the 'isMounted' property value for the 'useEffect' hook:
+- https://stackoverflow.com/questions/53949393/cant-perform-a-react-state-update-on-an-unmounted-component
+
+<2022-10-14 Fri 00:28>: I tried even using React's Docs page on how to create a 'Basic List Component' but I still can't get anything to display properly:
+- https://reactjs-bot.github.io/react/docs/lists-conditional-rendering.html
+
+Based on the behavior of what's happening, the 'renderedChecklistItems' is getting it's values reset for some reason, which I have absolutely no idea why this is occurring.

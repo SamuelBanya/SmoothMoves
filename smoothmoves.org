@@ -1934,5 +1934,5 @@ These are my other notes regarding this issue:
 <2022-10-14 Fri 01:50>: To keep pressing slightly forward, I found a really good example to use as a basis for the checklist portion to display at the bottom of the page since this example uses Material UI as well:
 - https://codesandbox.io/s/3jwge?file=/src/App.js
 
-I did separate research and found the '' component from Material UI as well so I'll probably just use this by default in the most basic way possible:
+I did separate research and found the 'Checkbox' component from Material UI as well so I'll probably just use this by default in the most basic way possible:
 - https://mui.com/material-ui/api/checkbox/

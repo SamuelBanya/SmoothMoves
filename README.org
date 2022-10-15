@@ -2,32 +2,23 @@
 A Full Stack web application made with React, Ruby, and Sinatra to help assist a U.S. based person to move via a related inventory sheet, and checklist which can be exported and shared with potential movers.
 
 * Goals
-The main goals of this project include the following:
-- The ability for the user to tell the web app the two locations involved in their move (pickup location and dropoff location) which will be hooked up to a map based API to show markers, and total distance required in miles.
+Current completed goals of the project include the following:
+- The ability for the user to list the two locations involved in their move ("pickup location" and "dropoff location")
 - The ability for the user to go through each inventory item to determine its height, width, length, and weight of each box or individual item.
-- The ability for the user once they are done with this process to be shown the same checklist so that they can check each item off one by one.
-- The ability to then export this same checklist within a separate route as an Excel spreadsheet (.'.csv', or '.xlsx') to provide to actual movers.
-- The user can also fill out a form to then generate an email to be sent to the given mover as well.
+- The ability for the user to be shown a related checklist of items so that they can check each item off one by one when they are done with their move.
+
+Current roadmap items to be implemented at a future data include the following:
+- The ability for the user to use a map based API to show markers, and the total distance required in miles.
+- The ability to then export this same checklist within a separate route as an Excel spreadsheet (.'.csv', or '.xlsx') to provide to an actual moving company
+- The ability for a user to fill out a form to email the same moving company as well.
 
 * SQL Table Relationships
 The related SQL table relationships include the following:
-
-1. "Users" Vs. "Items"
-- There is an individual "User" per session who owns many "Items".
-- Therefore, each "User" "has_many" "Items" in terms of the Active Record relationship.
-
-2. "Items" Vs. "Categories"
-- Each "Item" could have an individual "Category", whose ".value" property could be equal to "box" or "loose".
-- Therefore, each "Item" "belongs_to" a "Category" in terms of the Active Record relationship.
-
-3. "Users" Vs. "Movers"
-- Each "User" could have many "Movers" to choose from.
-- Therefore, each "User" "has_many" "Movers".
-- This is because you might need two sets of movers on both ends of the move for the pickup location and dropoff location.
+- Each 'Item' class instance within the '/items' route has the 'belongs to' Active Record relationship to the 'Move' class
+- Each 'Move' class instance within the '/moves' route has the 'has many' Active Record relationship to the 'Item' class
 
 * Related Routes On Frontend Portion Of App
-Routes include:
-- /form: This is the form that the user fills out initially
-- /checklist: This is the checklist that can be served to the user which can be checked off via the frontend with React based mouse clicks, and will also include a summary section at the top which totals the total amount of boxes, their associated weight, the square feet of the boxes if the user needs to use a storage container, and the total mileage the move will take.
-- /export: This is how the user will be able to export their given results to a Excel spreadsheet
-- /email: This is the form that the user can use to email various movers instead of having to re-open their Gmail account, etc.
+Available routes of this web app include the following:
+- /about: This is the section that details information about the app itself
+- /moves: This is the section that allows the user to create a new move, edit an existing move, and delete an existing move, which makes this app 'CRUD' (Create Read Update Delete) compatible
+- /items: This is the section that allows the user to select a move, and then to create new items via a carousel React controlled form which then creates a resulting checklist at the bottom of the app for the user to checkoff each item after their given move is complete

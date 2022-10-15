@@ -36,6 +36,7 @@ class ApplicationController < Sinatra::Base
     move.to_json(include: :items)
   end
 
+  # NOTE: This is the original route before I looped through individual POST requests:
   post "/moves/:id/items" do 
     # Related Docs page on 'collection.create' method:
     # https://guides.rubyonrails.org/association_basics.html#methods-added-by-has-many-collection-create-attributes
@@ -45,14 +46,16 @@ class ApplicationController < Sinatra::Base
       length: params[:length],
       width: params[:width],
       height: params[:height],
-      weight: params[:weight],
+      weight: params[:weight]
     )
     item.to_json()
   end
 
-  post "/test/:id" do 
-    move = Move.find(params[:id])
-    newItems = move.items.create(params[:items])
-    move.to_json(include: :items)
-  end
+  # NOTE: This is the modified route where you can provide the entire array:
+  # post "/test/:id" do 
+  # post "/moves/:id/items" do
+  #   move = Move.find(params[:id])
+  #   newItems = move.items.create(params[:items])
+  #   move.to_json(include: :items)
+  # end
 end

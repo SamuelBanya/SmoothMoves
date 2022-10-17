@@ -1,5 +1,21 @@
+
 * Smooth Moves
 A Full Stack web application made with React, Ruby, and Sinatra to help assist a U.S. based person to move via a related inventory sheet, and checklist which can be exported and shared with potential movers.
+
+* Links
+Link to the frontend repo for this project:
+- https://github.com/SamuelBanya/SmoothMoves-Frontend
+
+* Installation Instructions
+Run the following command within the local repo's directory:
+#+begin_src bash
+bundle install
+#+end_src
+
+Run the backend with this command:
+#+begin_src bash
+bundle exec rake server
+#+end_src
 
 * Goals
 Current completed goals of the project include the following:

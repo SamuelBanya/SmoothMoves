@@ -3,7 +3,7 @@
 A Full Stack web application made with React, Ruby, and Sinatra to help assist a U.S. based person to move via a related inventory sheet, and checklist which can be exported and shared with potential movers.
 
 * Links
-Link to the frontend repo for this project:
+Link to the 'frontend' repo for this project:
 - https://github.com/SamuelBanya/SmoothMoves-Frontend
 
 * Installation Instructions

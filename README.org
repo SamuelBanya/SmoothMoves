@@ -17,6 +17,11 @@ Run the backend with this command:
 bundle exec rake server
 #+end_src
 
+Run the related migration accordingly:
+#+begin_src bash
+bundle exec rake db:migrate
+#+end_src
+
 * Goals
 Current completed goals of the project include the following:
 - The ability for the user to list the two locations involved in their move ("pickup location" and "dropoff location")

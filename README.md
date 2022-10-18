@@ -1,22 +1,22 @@
 
 # Table of Contents
 
-1.  [Smooth Moves](#org435ec16)
-2.  [Links](#orgdca89d9)
-3.  [Installation Instructions](#org0d4b926)
-4.  [Goals](#orgbafdd2e)
-5.  [SQL Table Relationships](#org8b5a99e)
-6.  [Related Routes On Frontend Portion Of App](#orge02b6e3)
+1.  [Smooth Moves](#org16b880b)
+2.  [Links](#org9061eef)
+3.  [Installation Instructions](#org12251b7)
+4.  [Goals](#org966f166)
+5.  [SQL Table Relationships](#org763a342)
+6.  [Related Routes On Frontend Portion Of App](#orgac5d90c)
 
 
-<a id="org435ec16"></a>
+<a id="org16b880b"></a>
 
 # Smooth Moves
 
 A Full Stack web application made with React, Ruby, and Sinatra to help assist a U.S. based person to move via a related inventory sheet, and checklist which can be exported and shared with potential movers.
 
 
-<a id="orgdca89d9"></a>
+<a id="org9061eef"></a>
 
 # Links
 
@@ -25,7 +25,7 @@ Link to the 'frontend' repo for this project:
 -   <https://github.com/SamuelBanya/SmoothMoves-Frontend>
 
 
-<a id="org0d4b926"></a>
+<a id="org12251b7"></a>
 
 # Installation Instructions
 
@@ -37,8 +37,12 @@ Run the backend with this command:
 
     bundle exec rake server
 
+Run the related migration accordingly:
 
-<a id="orgbafdd2e"></a>
+    bundle exec rake db:migrate
+
+
+<a id="org966f166"></a>
 
 # Goals
 
@@ -55,7 +59,7 @@ Current roadmap items to be implemented at a future data include the following:
 -   The ability for a user to fill out a form to email the same moving company as well.
 
 
-<a id="org8b5a99e"></a>
+<a id="org763a342"></a>
 
 # SQL Table Relationships
 
@@ -65,7 +69,7 @@ The related SQL table relationships include the following:
 -   Each 'Move' class instance within the '/moves' route has the 'has many' Active Record relationship to the 'Item' class
 
 
-<a id="orge02b6e3"></a>
+<a id="orgac5d90c"></a>
 
 # Related Routes On Frontend Portion Of App
 
